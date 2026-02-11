@@ -18,6 +18,7 @@ export const createServer = async () => {
 };
 
 export default async (req: any, res: any) => {
+    console.log('Incoming Vercel Request:', req.url);
     await createServer();
     server(req, res);
 };

@@ -5,6 +5,11 @@ import { GuestbookService } from './guestbook.service';
 export class GuestbookController {
     constructor(private readonly service: GuestbookService) { }
 
+    @Get('hello')
+    getHello() {
+        return { message: 'Hello from NestJS!' };
+    }
+
     @Get()
     getAll() {
         return this.service.findAll();
