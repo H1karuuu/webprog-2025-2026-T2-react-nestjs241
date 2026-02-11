@@ -34,16 +34,23 @@ function App() {
     const url = editingId ? `${API_URL}/${editingId}` : API_URL;
 
     try {
-      await fetch(url, {
+      const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || `Server error: ${res.status}`);
+      }
       setForm({ name: '', message: '' });
       setEditingId(null);
       fetchEntries();
+      alert('Message signed successfully!');
     } catch (error) {
       console.error('Failed to save entry', error);
+      alert('Failed to sign guestbook: ' + error.message);
     }
   };
 
